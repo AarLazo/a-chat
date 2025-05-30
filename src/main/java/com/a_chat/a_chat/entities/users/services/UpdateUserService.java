@@ -2,6 +2,7 @@ package com.a_chat.a_chat.entities.users.services;
 
 
 import com.a_chat.a_chat.Command;
+import com.a_chat.a_chat.entities.users.exceptions.UserNotFoundException;
 import com.a_chat.a_chat.entities.users.model.UpdateUserCommand;
 import com.a_chat.a_chat.entities.users.model.UserDTO;
 import com.a_chat.a_chat.entities.users.UserRepository;
@@ -37,6 +38,6 @@ public class UpdateUserService implements Command<UpdateUserCommand, UserDTO> {
 
             return ResponseEntity.ok(new UserDTO(user));
         }
-        return null;
+        throw new UserNotFoundException();
     }
 }

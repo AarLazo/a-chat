@@ -2,6 +2,7 @@ package com.a_chat.a_chat.entities.users.services;
 
 import com.a_chat.a_chat.Command;
 import com.a_chat.a_chat.entities.users.UserRepository;
+import com.a_chat.a_chat.entities.users.exceptions.UserNotFoundException;
 import com.a_chat.a_chat.entities.users.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,6 @@ public class DeleteUserService implements Command<Integer, Void> {
             userRepository.deleteById(userID);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
-
-        return null;
+        throw new UserNotFoundException();
     }
 }

@@ -1,6 +1,7 @@
 package com.a_chat.a_chat.entities.users.services;
 
 import com.a_chat.a_chat.Command;
+import com.a_chat.a_chat.entities.users.exceptions.UserNotFoundException;
 import com.a_chat.a_chat.entities.users.model.UpdateUserStateCommand;
 import com.a_chat.a_chat.entities.users.model.UserDTO;
 import com.a_chat.a_chat.entities.users.UserRepository;
@@ -40,6 +41,6 @@ public class UpdateUserStateService implements Command<UpdateUserStateCommand, U
 
             return ResponseEntity.status(HttpStatus.OK).body(new UserDTO(user));
         }
-        return null;
+        throw new UserNotFoundException();
     }
 }
