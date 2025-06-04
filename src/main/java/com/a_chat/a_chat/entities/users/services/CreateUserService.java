@@ -4,6 +4,7 @@ import com.a_chat.a_chat.Command;
 import com.a_chat.a_chat.entities.users.model.UserDTO;
 import com.a_chat.a_chat.entities.users.UserRepository;
 import com.a_chat.a_chat.entities.users.model.User;
+import com.a_chat.a_chat.entities.users.validators.UserValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,8 @@ public class CreateUserService implements Command<User, UserDTO> {
     @Override
     public ResponseEntity<UserDTO> execute(User user) {
 
+        UserValidator.execute(user);
         User savedUser = userRepository.save(user);
-
         return ResponseEntity.status(HttpStatus.CREATED).body(new UserDTO(savedUser));
     }
 }
