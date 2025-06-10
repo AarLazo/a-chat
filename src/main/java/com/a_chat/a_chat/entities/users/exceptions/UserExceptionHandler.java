@@ -16,7 +16,7 @@ public class UserExceptionHandler {
         return new UserErrorResponse(exception.getMessage());
     }
     @ExceptionHandler(UserNotValidExeption.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public UserErrorResponse handleProductNotValidException(UserNotValidExeption exception){
         return new UserErrorResponse(exception.getMessage());
