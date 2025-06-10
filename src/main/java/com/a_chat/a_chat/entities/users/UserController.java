@@ -43,7 +43,7 @@ public class UserController {
 
     //CREATE A USER
     @PostMapping("/user")
-    public ResponseEntity<UserDTO> createUser(@RequestBody User user){
+    public ResponseEntity<UserDTO> createUser(@RequestBody CreateUserCommand user){
         return createUserService.execute(user);
     }
 

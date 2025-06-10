@@ -1,6 +1,7 @@
 package com.a_chat.a_chat.entities.users.model;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
 public class CreateUserCommand {
