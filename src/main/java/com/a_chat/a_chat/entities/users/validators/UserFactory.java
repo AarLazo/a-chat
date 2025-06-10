@@ -14,20 +14,27 @@ public class UserFactory {
     }
 
     public static User createFromCommand(CreateUserCommand createUserCommand) {
-        validateCommand(createUserCommand);
+        if (createUserCommand == null) {
+            throw new UserNotValidExeption(UserErrorMessages.INVALID_USER_DATA.getMessage());
+        }
 
         User user = new User();
         user.setUsername(createUserCommand.getUsername());
         user.setEmail(createUserCommand.getEmail());
         user.setPassword(createUserCommand.getPassword());
-        user.setBirthdate(parseBirthdate(createUserCommand.getBirthdate()));
 
-        // Validar DESPUÉS de establecer todos los campos
-        UserValidator.execute(user);
+        try {
+            user.setBirthdate(LocalDate.parse(createUserCommand.getBirthdate()));
+        } catch (DateTimeParseException e) {
+            throw new UserNotValidExeption(
+                    UserErrorMessages.INVALID_DATE_FORMAT.getMessage() +
+                            ". Expected format: YYYY-MM-DD"
+            );
+        }
 
         return user;
     }
-
+/*
     private static void validateCommand(CreateUserCommand command) {
         if (command == null) {
             throw new UserNotValidExeption(UserErrorMessages.INVALID_USER_DATA.getMessage());
@@ -43,5 +50,5 @@ public class UserFactory {
                             ". Expected format: YYYY-MM-DD"
             );
         }
-    }
+    }*/
 }

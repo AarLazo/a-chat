@@ -14,16 +14,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class CreateUserService implements Command<CreateUserCommand, UserDTO> {
     private final UserRepository userRepository;
+    private final UserValidator userValidator;
 
-    public CreateUserService(UserRepository userRepository) {
+    public CreateUserService(UserRepository userRepository, UserValidator userValidator) {
         this.userRepository = userRepository;
+        this.userValidator = userValidator;
     }
 
     @Override
     public ResponseEntity<UserDTO> execute(CreateUserCommand createUserCommand) {
-
         User user = UserFactory.createFromCommand(createUserCommand);
-
+        userValidator.validateForCreation(user);
         User savedUser = userRepository.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(new UserDTO(savedUser));
     }
