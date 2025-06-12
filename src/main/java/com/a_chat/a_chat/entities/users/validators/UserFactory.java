@@ -10,7 +10,6 @@ import java.time.format.DateTimeParseException;
 
 public class UserFactory {
     private UserFactory() {
-        // Constructor privado para clase de utilidad
     }
 
     public static User createFromCommand(CreateUserCommand createUserCommand) {
@@ -34,21 +33,4 @@ public class UserFactory {
 
         return user;
     }
-/*
-    private static void validateCommand(CreateUserCommand command) {
-        if (command == null) {
-            throw new UserNotValidExeption(UserErrorMessages.INVALID_USER_DATA.getMessage());
-        }
-    }
-
-    private static LocalDate parseBirthdate(String birthdate) {
-        try {
-            return LocalDate.parse(birthdate);
-        } catch (DateTimeParseException e) {
-            throw new UserNotValidExeption(
-                    UserErrorMessages.INVALID_DATE_FORMAT.getMessage() +
-                            ". Expected format: YYYY-MM-DD"
-            );
-        }
-    }*/
 }

@@ -16,15 +16,20 @@ public class CreateUserService implements Command<CreateUserCommand, UserDTO> {
     private final UserRepository userRepository;
     private final UserValidator userValidator;
 
-    public CreateUserService(UserRepository userRepository, UserValidator userValidator) {
+    public CreateUserService(UserRepository userRepository,
+                             UserValidator userValidator
+    ) {
         this.userRepository = userRepository;
         this.userValidator = userValidator;
     }
 
     @Override
     public ResponseEntity<UserDTO> execute(CreateUserCommand createUserCommand) {
+        //creates an instance User type with data from command
         User user = UserFactory.createFromCommand(createUserCommand);
+        //validates for creation
         userValidator.validateForCreation(user);
+        //JPA saves user on bd
         User savedUser = userRepository.save(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(new UserDTO(savedUser));
     }
